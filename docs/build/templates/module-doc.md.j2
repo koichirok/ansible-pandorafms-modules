@@ -1,0 +1,94 @@
+# {{ doc.module | markdown_ify }} - {{ doc['short_description'] | markdown_ify }}
+{# ansible official html document style
+{% set small_red_text_tag_start = '<div style="font-size: small; color: red">' %}
+{% set small_red_text_tag_end = '</div>' %}
+{% set blue_text_tag_start = '<div style="color: blue">' %}
+{% set blue_text_tag_end = '</div>' %}
+#}
+{% set small_red_text_tag_start = '<h6>' %}
+{% set small_red_text_tag_end = '</h6>' %}
+{% set blue_text_tag_start = '[' %}
+{% set blue_text_tag_end = '](#)' %}
+
+## Synopsis
+
+{% for each in doc['description'] %}
+{{ each | markdown_ify }}
+{% endfor %}
+
+{% if 'requirements' in doc %}
+## Requirements
+
+{% for req in doc['requirements'] %}
+* {{ req | markdown_ify }}
+{% endfor %}
+{% endif %}
+
+## Parameters
+
+{% if 'options' in doc %}
+| Parameter     | Choices/{{ blue_text_tag_start }}Defaults{{ blue_text_tag_end }} | Comments |
+| ------------- |------------------| ---------|
+{% for option in doc.options.keys() | sort %}
+| {{ option | markdown_ify }}
+{%-   if doc.options[option]['required']|default(false) %}<br>{{ small_red_text_tag_start }}required{{ small_red_text_tag_end }}{% endif %}
+{%-   if doc.options[option]['type']|default(false) %}<br>{{ small_red_text_tag_start }}{{doc.options[option]['type']}}{{ small_red_text_tag_end }}{% endif %}
+| {# Choices/Defaults #}
+{%-   set default = doc.options[option]['default'] | default(false) -%}
+{%-   if doc.options[option]['choices']|default(false) %}**Choices:**<ul>
+{%-     for each in doc.options[option]['choices'] -%}
+<li>{% if default == each %}{{ blue_text_tag_start}}**{{ each }}** ←{{ blue_text_tag_end }}{% else %}{{ each }}{% endif %}</li>
+{%-     endfor %}</ul>
+{%-   elif default %}**Default:**<br>{{ blue_text_tag_start }}{{ default }}{{ blue_text_tag_end }}</div>
+{%-   endif -%} 
+| {# Comments #}
+{%-   if doc.options[option]['description']|default(false) -%}
+{%-     for each in doc.options[option]['description']|default(false) -%}
+{{ each | markdown_ify }}
+{%-     endfor %}
+{%-   endif %} |
+{% endfor %}
+{% endif %}
+
+{% if doc['examples'] is defined %}
+
+## Examples
+
+```yaml
+{%- for example in doc['examples'] %}
+{{ example | replace('{#','{{') | replace('#}','}}') }}
+{% endfor %}
+```
+{% endif %}
+
+## Return Values
+
+Common return values are documented [here](https://docs.ansible.com/ansible/latest/reference_appendices/common_return_values.html#common-return-values), the following are the fields unique to this module:
+{% if doc['returndocs'] is defined and doc['returndocs'] %}
+{%   set returndocs = doc.returndocs | from_yaml %}
+
+| Key | Returned | Description |
+| --- |----------| ----------- |
+{%   for k in returndocs %}
+{%     set d = returndocs[k] %}
+{%     set t = d['type'] | default(false) %}
+{%     set s = d['sample'] | default(false) %}
+| {{ k | markdown_ify }}{% if t %}<br/>{{ small_red_text_tag_start }}{{ t }}{{ small_red_text_tag_end }}{% endif %}
+| {{ d['returned'] }} {# comment to avoid line break #}
+| {{ d['description'] | markdown_ify }}
+{%-    if s %}<br><div style="font-size: smaller">**Sample:**</div><div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">{{ blue_text_tag_start }}{% if s is string %}{{s}}{% else %}{{s|to_nice_json(indent=4)}}{% endif %}{{ blue_text_tag_end }}</div>
+{%-    endif %} |
+{%   endfor %}
+{% endif %}
+
+{% if doc['notes'] is defined %}
+## Notes
+
+{%   for note in doc['notes'] %}
+- {{ note | markdown_ify }}
+{%   endfor -%}
+{% endif %}
+
+## License
+
+{{ galaxy_info.license | default('') }}

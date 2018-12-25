@@ -1,0 +1,5 @@
+# All modules
+
+{% for doc in modules.results %}
+- [{{ doc.module | replace('_','\_') }} - {{ doc.short_description | markdown_ify | replace('_', '\_') }}]({{ doc.module }}.md)
+{% endfor %}

@@ -54,19 +54,19 @@ options:
             - other information of the group.
     force:
         description:
-            - If set to True, group always updated even if it already present.
+            - If set to C(yes), group always updated even if it already present.
         type: bool
         default: no
     state:
         description:
-            - Whether to create (`present'), or delete (`absent') module group.
+            - Whether to create C(present), or delete C(absent) module group.
         default: present
         choices: [ "present", "absent" ]
-extends_documentaion_fragment: pandorafms
-author:
-    - KIKUCHI Koichiro (@koichirok)
 notes:
     - Due to the Pandora FMS API limitations, diff mode is not supported.
+extends_documentation_fragment: pandorafms
+author:
+    - KIKUCHI Koichiro (@koichirok)
 '''
 
 EXAMPLES = '''

@@ -14,7 +14,7 @@ options:
         required: true
     login_password:
         description:
-            - password for the `login_user'.
+            - password for the 'login_user'.
         required: true
     api_password:
         description:
@@ -26,7 +26,7 @@ options:
         default: 10
     validate_certs:
         description:
-            - If set to False, SSL certificates will not be validated.
+            - If set to C(no), SSL certificates will not be validated.
         default: yes
         type: bool
 notes:

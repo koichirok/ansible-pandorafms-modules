@@ -23,10 +23,10 @@ version_added: "2.7"
 options:
     convert_macros:
         description:
-            - If set to False, plugin macros not converted to json.
+            - If set to C(no), plugin macros not converted to json.
         type: bool
         default: yes
-extends_documentaion_fragment: pandorafms
+extends_documentation_fragment: pandorafms
 author:
     - KIKUCHI Koichiro (@koichirok)
 '''
@@ -45,7 +45,7 @@ RETURN = '''
 pandora_plugin_facts:
   description: All plugins in Pandora FMS instance
   returned: success
-  type: list:
+  type: list
   sample:
     [
         {

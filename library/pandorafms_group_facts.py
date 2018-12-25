@@ -20,11 +20,11 @@ short_description: Gather facts about Pandora FMS groups
 description:
     - Gather facts about groups in Pandora FMS.
 version_added: "2.7"
-extends_documentaion_fragment: pandorafms
-author:
-    - KIKUCHI Koichiro (@koichirok)
 notes:
     - Due to Pandora FMS API limitations, this module returns only the group's ID and name.
+extends_documentation_fragment: pandorafms
+author:
+    - KIKUCHI Koichiro (@koichirok)
 '''
 
 EXAMPLES = '''
@@ -41,7 +41,7 @@ RETURN = '''
 pandora_group_facts:
   description: All groups in Pandora FMS instance
   returned: success
-  type: list:
+  type: list
   sample:
     [
         {

@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    username: koichirok
+  tasks:
+    - name: 'clone ansible-webdocs repo.'
+      git:
+        repo: https://github.com/koichirok/ansible-webdocs.git
+        dest: tmp/ansible-webdocs
+        depth: 1
+        force: yes
+
+    - name: load ansible-webdocs
+      include_role:
+        name: ansible-webdocs
+
+    - name: get docs and examples for modules
+      local_action:
+        module: ansible_docstring
+        path: '{{playbook_dir}}/../../library'
+        doc_fragments_path: '{{playbook_dir}}/../../utils/module_doc_fragments'
+      register: modules
+
+    - name: load meta info
+      include_vars:
+        file: '{{playbook_dir}}/../../meta/main.yml'
+
+    - name: generate module docs
+      template:
+        src: all-modules.md.j2
+        dest: '{{playbook_dir}}/../list_of_all_modules.md'
+
+    - name: generate module docs
+      template:
+        src: module-doc.md.j2
+        dest: '{{playbook_dir}}/../{{ doc.module }}.md'
+      loop: '{{ modules.results }}'
+      loop_control:
+        loop_var: doc
