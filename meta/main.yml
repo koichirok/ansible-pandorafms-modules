@@ -1,0 +1,21 @@
+galaxy_info:
+  role_name: pandorafms-modules
+  author: KIKUCHI Koichiro
+  description: ansible module to manage Pandora FMS
+  license: GPLv3
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: GenericLinux
+      versions:
+      - any
+    - name: GenericBSD
+      versions:
+      - any
+
+  galaxy_tags:
+    - monitoring
+    - pandorafms
+
+dependencies: []
