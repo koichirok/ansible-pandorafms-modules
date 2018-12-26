@@ -14,7 +14,7 @@ Installation and use
 --------------------
 
 ```
-$ ansible-galaxy install koichirok.pandorafms-modules
+$ ansible-galaxy install koichirok.pandorafms_modules
 ```
 
 Once installed, use the modules in playbook or role:
@@ -22,7 +22,7 @@ Once installed, use the modules in playbook or role:
 ```
 - name: Load modules
   roles:
-    - koichirok.pandorafms-modules
+    - koichirok.pandorafms_modules
   tasks:
     ...
 ```
