@@ -1,4 +1,4 @@
-# {{ doc.module | markdown_ify }} - {{ doc['short_description'] | markdown_ify }}
+# {{ doc.module | markdown_escape }} - {{ doc['short_description'] | markdown_ify }}
 {# ansible official html document style
 {% set small_red_text_tag_start = '<div style="font-size: small; color: red">' %}
 {% set small_red_text_tag_end = '</div>' %}
@@ -30,7 +30,7 @@
 | Parameter     | Choices/{{ blue_text_tag_start }}Defaults{{ blue_text_tag_end }} | Comments |
 | ------------- |------------------| ---------|
 {% for option in doc.options.keys() | sort %}
-| {{ option | markdown_ify }}
+| {{ option | markdown_escape }}
 {%-   if doc.options[option]['required']|default(false) %}<br>{{ small_red_text_tag_start }}required{{ small_red_text_tag_end }}{% endif %}
 {%-   if doc.options[option]['type']|default(false) %}<br>{{ small_red_text_tag_start }}{{doc.options[option]['type']}}{{ small_red_text_tag_end }}{% endif %}
 | {# Choices/Defaults #}
@@ -73,10 +73,10 @@ Common return values are documented [here](https://docs.ansible.com/ansible/late
 {%     set d = returndocs[k] %}
 {%     set t = d['type'] | default(false) %}
 {%     set s = d['sample'] | default(false) %}
-| {{ k | markdown_ify }}{% if t %}<br/>{{ small_red_text_tag_start }}{{ t }}{{ small_red_text_tag_end }}{% endif %}
+| {{ k | markdown_escape }}{% if t %}<br/>{{ small_red_text_tag_start }}{{ t }}{{ small_red_text_tag_end }}{% endif %}
 | {{ d['returned'] }} {# comment to avoid line break #}
 | {{ d['description'] | markdown_ify }}
-{%-    if s %}<br><div style="font-size: smaller">**Sample:**</div><div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">{{ blue_text_tag_start }}{% if s is string %}{{s}}{% else %}{{s|to_nice_json(indent=4)}}{% endif %}{{ blue_text_tag_end }}</div>
+{%-    if s %}<br><div style="font-size: smaller">**Sample:**</div><div style="font-size: smaller; color: blue; word-wrap: break-word; word-break: break-all;">{{ blue_text_tag_start }}{% if s is string %}{{s}}{% else %}{{s|to_nice_json(indent=4) | replace('\n', '<br>') | replace(' ', '&nbsp;')}}{% endif %}{{ blue_text_tag_end }}</div>
 {%-    endif %} |
 {%   endfor %}
 {% endif %}

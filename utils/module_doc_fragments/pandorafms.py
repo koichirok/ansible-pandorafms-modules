@@ -14,7 +14,7 @@ options:
         required: true
     login_password:
         description:
-            - password for the 'login_user'.
+            - password for the I(login_user).
         required: true
     api_password:
         description:
@@ -30,5 +30,5 @@ options:
         default: yes
         type: bool
 notes:
-    - To use this module, you have to configure API access for your Pandora FMS console. see https://wiki.pandorafms.com/index.php?title=Pandora:Documentation_en:Annex_ExternalAPI for detail.
+    - To use this module, you have to configure API access for your Pandora FMS console. see U(https://wiki.pandorafms.com/index.php?title=Pandora:Documentation_en:Annex_ExternalAPI) for detail.
 '''

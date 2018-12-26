@@ -17,7 +17,7 @@ Ansible module to manage Pandora FMS groups
 | disable\_alerts<br><h6>bool</h6>| | Wheter to disable or enable alerts in group. |
 | force<br><h6>bool</h6>| | If set to `yes`, group always updated even if it already present. |
 | icon<br><h6>required</h6>| | name of the group icon. |
-| login\_password<br><h6>required</h6>| | password for the 'login\_user'. |
+| login\_password<br><h6>required</h6>| | password for the *login\_user*. |
 | login\_user<br><h6>required</h6>| | user name to login to Pandora FMS Console. |
 | name<br><h6>required</h6>| | name of the group. |
 | other\_info| | other information of the group. |
@@ -66,7 +66,7 @@ Common return values are documented [here](https://docs.ansible.com/ansible/late
 ## Notes
 
 - Due to the Pandora FMS API limitations, diff mode is not supported.
-- To use this module, you have to configure API access for your Pandora FMS console. see https://wiki.pandorafms.com/index.php?title=Pandora:Documentation\_en:Annex\_ExternalAPI for detail.
+- To use this module, you have to configure API access for your Pandora FMS console. see https://wiki.pandorafms.com/index.php?title=Pandora:Documentation_en:Annex_ExternalAPI for detail.
 
 ## License
 
