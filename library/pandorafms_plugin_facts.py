@@ -107,7 +107,7 @@ def main():
 
     plugins = api.get_plugins(module.params['convert_macros'])
 
-    module.exit_json(plugins=plugins)
+    module.exit_json(pandorafms_plugin_facts=plugins)
 
 
 if __name__ == '__main__':
